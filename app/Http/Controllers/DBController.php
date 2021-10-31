@@ -66,8 +66,8 @@ class DBController extends Controller
         if($request["player_id"]){
             if(User::where('user_cookie',$request->session()->getId())->exists()){
                 $user=User::where('user_cookie',$request->session()->getId())->first();
-                //Sessionlist::where([['content_id',$user->content_id],['session_id',$user->session_id]])->decrement('nummatchpeople');
-                //User::where('user_cookie',$request->session()->getId())->delete();
+                Sessionlist::where([['content_id',$user->content_id],['session_id',$user->session_id]])->decrement('nummatchpeople');
+                User::where('user_cookie',$request->session()->getId())->delete();
             }
             User::create([
             'user_cookie'   => $request->session()->getId(),
@@ -86,8 +86,8 @@ class DBController extends Controller
     public function match_stop(Request $request){
         if(User::where('user_cookie',$request->session()->getId())->exists()){
             $user=User::where('user_cookie',$request->session()->getId())->first();
-            //Sessionlist::where([['content_id',$user->content_id],['session_id',$user->session_id]])->decrement('nummatchpeople');
-            //User::where('user_cookie',$request->session()->getId())->delete();
+            Sessionlist::where([['content_id',$user->content_id],['session_id',$user->session_id]])->decrement('nummatchpeople');
+            User::where('user_cookie',$request->session()->getId())->delete();
         }
         return 0;
     }
@@ -184,11 +184,11 @@ class DBController extends Controller
         if(User::where('user_cookie', $request->session()->getId())->exists()){
             $user=User::where('user_cookie', $request->session()->getId())->first();
             $sessiondata=Session::where('match_id',$user->value('match_id'))->first();
-            /*if(strtotime('now')-strtotime($sessiondata->value('created_at'))>6000){
+            if(strtotime('now')-strtotime($sessiondata->value('created_at'))>6000){
                 Comment::where('match_id', $user->get('match_id'))->delete();
                 User::where('match_id', $user->get('match_id'))->delete();
                 Session::where('match_id', $user->get('match_id'))->delete();
-            }*/
+            }
             $comments=Comment::where('match_id', $user->value('match_id'))->get();
             return json_encode(['comments'=>$comments,'user'=>$user->value('value')]);
         }
