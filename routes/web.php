@@ -32,6 +32,10 @@ Route::get('/make_sessionlists', 'DBController@make_sessionlists1');
 
 Route::post('/make_sessionlists/make_sessionlists', 'DBController@make_sessionlists2');
 
+Route::get('/delete_sessionlists', 'DBController@delete_sessionlists1');
+
+Route::post('/delete_sessionlists/make_sessionlists', 'DBController@delete_sessionlists2');
+
 Route::get('/chat', 'DBController@chat_start');
 
 Route::get('/chat/chatting', 'DBController@chatting');

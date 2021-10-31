@@ -16,7 +16,7 @@
         <p>
             コンテンツ名：
             @foreach($contents as $content)
-                <input type="radio" name="content_id" value={{$content->content_id}}>{{$content->content_name}}
+                <input type="radio" name="content_id" value={{$content->content_id}}>{{$content->content_name}}/
             @endforeach
         </p>
         <p>

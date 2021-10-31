@@ -30,6 +30,9 @@
         </h1>
     </div>
     @yield('content')
+    <div id="footer" class="fixed-bottom text-center bg-light" style="height:30px;" >
+        <a href="https://twitter.com/ZYoulcray">お問い合わせ</a>
+    </div>
     
 </body>
 </html>

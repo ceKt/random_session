@@ -23,14 +23,14 @@
             </a>
         </div>
         <div class="col-8 text-center">
-            <div id="inputbutton">ID : <input type=text id="player_id">&nbsp;<button type="button" id="matchbutton" class="btn btn-primary">session開始</button></div>
+            <div id="inputbutton">ID : <input type=text id="player_id">&nbsp;<button type="button" id="matchbutton" class="btn btn-primary">マッチ開始</button></div>
             <table class="table bg-light">
                 <thead>
                     <tr>
                         <th scope="col">セッション名</th>
                         <th scope="col">ルール</th>
                         <th scope="col">必要人数</th>
-                        <th scope="col">待ち人数</th>
+                        <th scope="col">待機人数</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -62,6 +62,22 @@ class DBController extends Controller
         return redirect('/contents/'.Content::where('content_id',$request['content_id'])->first()->value('content_name'));
     }
     
+    public function delete_sessionlists1(){
+        $contents = Content::get();
+        $sessionlists=Sessionlist::get();
+        return view('/delete_sessionlists')->with([
+            "contents"      => $contents,
+            "sessionlists"  => $sessionlists,
+        ]);
+    }
+    
+    public function delete_sessionlists2(Request $request){
+        foreach($request['session_id'] as $req){
+            Sessionlist::where('session_id',$req)->delete();
+        }
+        return redirect('/');
+    }
+    
     public function match_start(Request $request){
         if($request["player_id"]){
             if(User::where('user_cookie',$request->session()->getId())->exists()){
