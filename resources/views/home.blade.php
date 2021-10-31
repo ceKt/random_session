@@ -59,7 +59,23 @@
             </a>
         </div>
         <div class="col-sm text-center">
-            c
+            <div>
+                <table class="table bg-light">
+                    <thead>
+                        <tr>
+                            <th scope="col">累計マッチング数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </div>
+                        @foreach($sessionlists as $sessionlist)
+                            <tr>
+                                <td>{{$contents->where('content_id', $sessionlist->content_id)[0]->content_name}}（{{$sessionlist->session_name}}）：　{{$sessionlist->numaccess}}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

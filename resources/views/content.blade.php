@@ -57,7 +57,23 @@
             </a>
         </div>
         <div class="col-sm text-center">
-            c
+            <div>
+                <table class="table bg-light">
+                    <thead>
+                        <tr>
+                            <th scope="col">累計マッチング数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </div>
+                        @foreach($sessionlists as $sessionlist)
+                            <tr>
+                                <td>{{$sessionlist->session_name}}：　{{$sessionlist->numaccess}}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

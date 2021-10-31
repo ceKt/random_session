@@ -107,7 +107,7 @@ class DBController extends Controller
                 //return $userscount;
                 if($userscount>=$sessiondata->value('numpeople')){
                     $users=User::where([['content_id',$user['content_id']],['session_id',$user['session_id']],['status', 0]])->get();
-                    Sessionlist::where([['content_id',$user->content_id],['session_id',$user->session_id]])->increment('numaccess',$sessiondata->value('numpeople'));
+                    Sessionlist::where([['content_id',$user->content_id],['session_id',$user->session_id]])->increment('numaccess');
                     Session::create([
                         'content_id'    => $user->content_id,
                         'user'         => $users[0]->user_cookie,
