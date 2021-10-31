@@ -20,7 +20,7 @@
             @endforeach
         </p>
         <p>
-            <input type="submit" value="削除">link
+            <input type="submit" value="削除">
         </p>
     </form>
 </body>

@@ -193,7 +193,7 @@ class DBController extends Controller
                 "comment"       =>$request['message']
                 ]);
         }
-        return 0;
+        return $request->session()->getId();
     }
     
     function chatting(Request $request){
