@@ -193,7 +193,7 @@ class DBController extends Controller
                 "comment"       =>$request['message']
                 ]);
         }
-        return $user;
+        return $user->value('value');
     }
     
     function chatting(Request $request){
