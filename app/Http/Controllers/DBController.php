@@ -206,7 +206,7 @@ class DBController extends Controller
                 Session::where('match_id', $user->get('match_id'))->delete();
             }
             $comments=Comment::where('match_id', $user->value('match_id'))->get();
-            return json_encode(['comments'=>$comments,'user'=>$user->value('value')]);
+            return json_encode(['comments'=>$comments,'user'=>$user->value('value'),'test'=>$user]);
         }
         return redirect('/');
     }
