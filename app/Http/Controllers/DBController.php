@@ -201,12 +201,12 @@ class DBController extends Controller
             $user=User::where('user_cookie', $request->session()->getId())->first();
             $sessiondata=Session::where('match_id',$user->value('match_id'))->first();
             if(strtotime('now')-strtotime($sessiondata->value('created_at'))>6000){
-                Comment::where('match_id', $user->get('match_id'))->delete();
-                User::where('match_id', $user->get('match_id'))->delete();
-                Session::where('match_id', $user->get('match_id'))->delete();
+                Comment::where('match_id', $user->value('match_id'))->delete();
+                User::where('match_id', $user->value('match_id'))->delete();
+                Session::where('match_id', $user->vvlue('match_id'))->delete();
             }
             $comments=Comment::where('match_id', $user->value('match_id'))->get();
-            return json_encode(['comments'=>$comments,'user'=>$user->value]);
+            return json_encode(['comments'=>$comments,'user'=>$user->value,'cookie'=>$user->value('user_cookie'),'cookie2'=>$user->user_cookie]);
         }
         return redirect('/');
     }
