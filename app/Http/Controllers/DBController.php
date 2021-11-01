@@ -59,7 +59,7 @@ class DBController extends Controller
             'rule'          => $request['rule'],
             'numpeople'     => $request['numpeople']
             ]);
-        return redirect('/contents/'.Content::where('content_id',$request['content_id'])->first()->value('content_name'));
+        return redirect('/contents/'.Content::where('content_id',$request['content_id'])->first()['content_name']);
     }
     
     public function delete_sessionlists1(){
