@@ -189,7 +189,7 @@ class DBController extends Controller
             Comment::create([
                 "content_id"    =>$user->value('content_id'),
                 "match_id"      =>$user->value('match_id'),
-                "sender"        =>$user->value('value'),
+                "sender"        =>$user->value,
                 "comment"       =>$request['message']
                 ]);
         }
