@@ -121,7 +121,7 @@ class DBController extends Controller
                 $userscount=User::where([['content_id',$user['content_id']],['session_id',$user['session_id']],['status', 0]])->count();
                 $sessiondata=Sessionlist::where([['content_id',$user['content_id']],['session_id',$user['session_id']]])->first();
                 //return $userscount;
-                if($userscount>=$sessiondata->value('numpeople')){
+                if($userscount>=$sessiondata['numpeople']){
                     $users=User::where([['content_id',$user['content_id']],['session_id',$user['session_id']],['status', 0]])->get();
                     Sessionlist::where([['content_id',$user->content_id],['session_id',$user->session_id]])->increment('numaccess');
                     Session::create([
@@ -130,14 +130,14 @@ class DBController extends Controller
                         ]);
                     
                     $match_id=Session::where('user',$users[0]->user_cookie)->value('match_id');
-                    for($i=0;$i<$sessiondata->value('numpeople');$i++){
+                    for($i=0;$i<$sessiondata['numpeople'];$i++){
                         $users[$i]->status=1;
                         $users[$i]->match_id=$match_id;
                         $users[$i]->save();
                     }
                     
                     $user=User::where('user_cookie',$request->session()->getId())->first();
-                    Sessionlist::where([['content_id',$user->content_id],['session_id',$user->session_id]])->decrement('nummatchpeople',$sessiondata->value('numpeople'));
+                    Sessionlist::where([['content_id',$user->content_id],['session_id',$user->session_id]])->decrement('nummatchpeople',$sessiondata['numpeople']);
                     return json_encode($res);
                 }
             }
@@ -164,18 +164,18 @@ class DBController extends Controller
     function chat_end(Request $request){
         if(User::where('user_cookie',$request->session()->getId())->exists()){
             $user=User::where('user_cookie',$request->session()->getId())->first();
-            if(Session::where('match_id',$user->value('match_id'))->first()->value('num')<=1){
-                Session::where('match_id',$user->value('match_id'))->delete();
-                Comment::where('match_id',$user->value('match_id'))->delete();
+            if(Session::where('match_id',$user['match_id'])->first()->value('num')<=1){
+                Session::where('match_id',$user['match_id'])->delete();
+                Comment::where('match_id',$user['match_id'])->delete();
             }
             else{
                 Comment::create([
-                    "content_id"    =>$user->value('content_id'),
-                    "match_id"      =>$user->value('match_id'),
+                    "content_id"    =>$user['content_id'],
+                    "match_id"      =>$user['match_id'],
                     "sender"        =>$user->value,
                     "comment"       =>$user->value."が退出しました。"
                     ]);
-                Session::where('match_id',$user->value('match_id'))->decrement('num');
+                Session::where('match_id',$user['match_id'])->decrement('num');
             }
             User::where('user_cookie',$request->session()->getId())->delete();
         }
@@ -187,8 +187,8 @@ class DBController extends Controller
         if($request['message']){
             $user=User::where('user_cookie', $request->session()->getId())->first();
             Comment::create([
-                "content_id"    =>$user->value('content_id'),
-                "match_id"      =>$user->value('match_id'),
+                "content_id"    =>$user['content_id'],
+                "match_id"      =>$user['match_id'],
                 "sender"        =>$user->value,
                 "comment"       =>$request['message']
                 ]);
@@ -199,14 +199,14 @@ class DBController extends Controller
     function chatting(Request $request){
         if(User::where('user_cookie', $request->session()->getId())->exists()){
             $user=User::where('user_cookie', $request->session()->getId())->first();
-            $sessiondata=Session::where('match_id',$user->value('match_id'))->first();
-            if(strtotime('now')-strtotime($sessiondata->value('created_at'))>6000){
-                Comment::where('match_id', $user->value('match_id'))->delete();
-                User::where('match_id', $user->value('match_id'))->delete();
-                Session::where('match_id', $user->vvlue('match_id'))->delete();
+            $sessiondata=Session::where('match_id',$user['match_id'])->first();
+            if(strtotime('now')-strtotime($sessiondata['created_at'])>6000){
+                Comment::where('match_id', $user['match_id'])->delete();
+                User::where('match_id', $user['match_id'])->delete();
+                Session::where('match_id', $user['match_id'])->delete();
             }
-            $comments=Comment::where('match_id', $user->value('match_id'))->get();
-            return json_encode(['comments'=>$comments,'user'=>$user->value,'cookie'=>$user->value('user_cookie'),'cookie2'=>$user->user_cookie]);
+            $comments=Comment::where('match_id', $user['match_id'])->get();
+            return json_encode(['comments'=>$comments,'user'=>$user->value,'cookie'=>$user['user_cookie'],'cookie2'=>$user->user_cookie]);
         }
         return redirect('/');
     }
