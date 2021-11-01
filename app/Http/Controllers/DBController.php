@@ -172,8 +172,8 @@ class DBController extends Controller
                 Comment::create([
                     "content_id"    =>$user->value('content_id'),
                     "match_id"      =>$user->value('match_id'),
-                    "sender"        =>$user->value('value'),
-                    "comment"       =>$user->value('value')."が退出しました。"
+                    "sender"        =>$user->value,
+                    "comment"       =>$user->value."が退出しました。"
                     ]);
                 Session::where('match_id',$user->value('match_id'))->decrement('num');
             }
@@ -193,7 +193,7 @@ class DBController extends Controller
                 "comment"       =>$request['message']
                 ]);
         }
-        return $user->value('value');
+        return $user->value;
     }
     
     function chatting(Request $request){
