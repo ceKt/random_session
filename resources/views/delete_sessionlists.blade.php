@@ -16,7 +16,7 @@
         <p>
             セッション名：<br>
             @foreach($sessionlists as $sessionlist)
-                <input type="checkbox" id="{{$sessionlist->session_id}}"name="session_id[]" value={{$sessionlist->session_id}}>{{$contents->where('content_id', $sessionlist->content_id)->first()->value('content_name')}}：{{$sessionlist->session_name}}：{{$sessionlist->rule}}：{{$sessionlist->numpeople}}<br>
+                <input type="checkbox" id="{{$sessionlist->session_id}}"name="session_id[]" value={{$sessionlist->session_id}}>{{$contents->where('content_id', $sessionlist->content_id)->first()['content_name']}}：{{$sessionlist->session_name}}：{{$sessionlist->rule}}：{{$sessionlist->numpeople}}<br>
             @endforeach
         </p>
         <p>
