@@ -130,7 +130,7 @@ class DBController extends Controller
                         ]);
                     
                     $match_id=Session::where('user',$users[0]->user_cookie)->value('match_id');
-                    for($i=0;$i<$sessiondata->numpeople;$i++){
+                    for($i=0;$i<$sessiondata->value('numpeople');$i++){
                         $users[$i]->status=1;
                         $users[$i]->match_id=$match_id;
                         $users[$i]->save();
@@ -164,16 +164,16 @@ class DBController extends Controller
     function chat_end(Request $request){
         if(User::where('user_cookie',$request->session()->getId())->exists()){
             $user=User::where('user_cookie',$request->session()->getId())->first();
-            if(Session::where('match_id',$user->match_id)->first()->value('num')<=1){
-                Session::where('match_id',$user->match_id)->delete();
-                Comment::where('match_id',$user->match_id)->delete();
+            if(Session::where('match_id',$user->value('match_id'))->first()->value('num')<=1){
+                Session::where('match_id',$user->value('match_id'))->delete();
+                Comment::where('match_id',$user->value('match_id'))->delete();
             }
             else{
                 Comment::create([
-                    "content_id"    =>$user->content_id,
-                    "match_id"      =>$user->match_id,
-                    "sender"        =>$user->value,
-                    "comment"       =>$user->value."が退出しました。"
+                    "content_id"    =>$user->value('content_id'),
+                    "match_id"      =>$user->value('match_id'),
+                    "sender"        =>$user->value('value'),
+                    "comment"       =>$user->value('value')."が退出しました。"
                     ]);
                 Session::where('match_id',$user->value('match_id'))->decrement('num');
             }
@@ -187,23 +187,23 @@ class DBController extends Controller
         if($request['message']){
             $user=User::where('user_cookie', $request->session()->getId())->first();
             Comment::create([
-                "content_id"    =>$user->content_id,
-                "match_id"      =>$user->match_id,
-                "sender"        =>$user->value,
+                "content_id"    =>$user->value('content_id'),
+                "match_id"      =>$user->value('match_id'),
+                "sender"        =>$user->value('value'),
                 "comment"       =>$request['message']
                 ]);
         }
-        return $user->value;
+        return $user->value('value');
     }
     
     function chatting(Request $request){
         if(User::where('user_cookie', $request->session()->getId())->exists()){
             $user=User::where('user_cookie', $request->session()->getId())->first();
-            $sessiondata=Session::where('match_id',$user->match_id)->first();
-            if(strtotime('now')-strtotime($sessiondata->reated_at)>6000){
-                Comment::where('match_id', $user->match_id)->delete();
-                User::where('match_id', $user->match_id)->delete();
-                Session::where('match_id', $user->match_id)->delete();
+            $sessiondata=Session::where('match_id',$user->value('match_id'))->first();
+            if(strtotime('now')-strtotime($sessiondata->value('created_at'))>6000){
+                Comment::where('match_id', $user->get('match_id'))->delete();
+                User::where('match_id', $user->get('match_id'))->delete();
+                Session::where('match_id', $user->get('match_id'))->delete();
             }
             $comments=Comment::where('match_id', $user->value('match_id'))->get();
             return json_encode(['comments'=>$comments,'user'=>$user->value]);
