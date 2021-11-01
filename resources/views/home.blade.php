@@ -70,7 +70,7 @@
                         </div>
                         @foreach($sessionlists as $sessionlist)
                             <tr>
-                                <td>{{$contents->where('content_id', $sessionlist->content_id)[0]->content_name}}（{{$sessionlist->session_name}}）：　{{$sessionlist->numaccess}}</td>
+                                <td>{{$contents->where('content_id', $sessionlist->content_id)->first()->content_name}}（{{$sessionlist->session_name}}）：　{{$sessionlist->numaccess}}</td>
                             </tr>
                         @endforeach
                     </tbody>
