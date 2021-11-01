@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-10 text-center"><input type="text" id="message" class="form-control"></div>
                     <div class="col-2 text-center"><button type="button" id="sendmessage"class="btn btn-primary">送信</buton></div>
-                </div>
+                </div><br>
             </div>
             </div>
         </div>
