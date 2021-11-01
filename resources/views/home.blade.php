@@ -44,7 +44,7 @@
                                 @else
                                 <input class="form-check-input" type="radio" name="contents" id="{{$sessionlist->content_id}}" value="{{$sessionlist->session_id}}">
                                 @endif
-                                <label class="form-check-label" for="{{$sessionlist->content_id}}">{{$contents->where('content_id', $sessionlist->content_id)[0]->content_name}}</label>
+                                <label class="form-check-label" for="{{$sessionlist->content_id}}">{{$contents->where('content_id', $sessionlist->content_id)->first()->content_name}}</label>
                             </div></td>
                             <td>{{$sessionlist->session_name}}</td>
                             <td>{{$sessionlist->rule}}</td>

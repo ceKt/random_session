@@ -35,7 +35,7 @@
                 <p class="text-right bg-light">このチャットルームは10分後に消滅します。それまでにID交換等お願いします。</p>
             </div>
             <div id=chat_content></div>
-            <br><br>
+            <br><br><br>
             <div class="fixed-bottom">
             <div class="container-fluid">
                 <div class="row">
